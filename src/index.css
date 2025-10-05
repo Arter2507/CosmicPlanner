@@ -1,0 +1,140 @@
+/** @format */
+
+@import 'tailwindcss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Định nghĩa nền cho thẻ html dựa trên class từ ThemeProvider */
+html.light-theme-background {
+	background-image: url('/images/space_bg.jpg'); /* <-- CẦN CHÍNH XÁC */
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center;
+	transition: background-image 0.5s ease-in-out,
+		background-color 0.5s ease-in-out;
+}
+
+html.dark-theme-background {
+	background-image: url('/images/dark-space-bg.jpg'); /* <-- CẦN CHÍNH XÁC */
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center;
+	transition: background-image 0.5s ease-in-out,
+		background-color 0.5s ease-in-out;
+}
+
+/* Hiệu ứng gradient cho chữ Cosmic Planner (hoặc các chữ khác) */
+.animate-gradient-text-dark {
+	background-image: linear-gradient(to right, #a7c5eb, #f7b0b9);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.animate-gradient-text-light {
+	background-image: linear-gradient(
+		to right,
+		#ffffff 0%,
+		#e8e8e8 50%,
+		#ffffff 100%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 50%;
+	}
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Các styles chung cho chế độ sáng/tối nếu cần, ví dụ màu chữ mặc định */
+.light-theme-background {
+	color: #1a1a2e; /* Màu chữ mặc định cho chế độ sáng */
+}
+
+.dark-theme-background {
+	color: #ffffff; /* Màu chữ mặc định cho chế độ tối */
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		color: #213547;
+		background-color: #ffffff;
+	}
+}
+
+/* ===== Hiệu ứng nền đen mờ khi hover ===== */
+.hover-bg-black {
+	position: relative;
+	overflow: hidden; /* tránh tràn lớp overlay */
+}
+
+.hover-bg-black::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.3); /* màu nền mờ */
+	opacity: 0; /* ẩn ban đầu */
+	transition: opacity 0.3s ease; /* hiệu ứng fade */
+	z-index: 0;
+}
+
+.hover-bg-black:hover::after {
+	opacity: 1; /* hiển thị khi hover */
+}
+
+/* ===== Hiệu ứng nền trắng mờ khi hover ===== */
+.hover-bg-white {
+	position: relative;
+	overflow: hidden;
+}
+
+.hover-bg-white::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-color: rgba(255, 255, 255, 0.3);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 0;
+}
+
+.hover-bg-white:hover::after {
+	opacity: 1;
+}
+
+/* Đảm bảo nội dung không bị che */
+.hover-bg-black > *,
+.hover-bg-white > * {
+	position: relative;
+	z-index: 1;
+}
