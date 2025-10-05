@@ -32,14 +32,14 @@ sử dụng **Google Sheet** làm cơ sở dữ liệu và **Google Apps Script*
 VITE_GAS_WEB_APP_URL=your_api_key_here
 ```
 ---
-##📦 Run Project | Chạy dự án
+## 📦 Run Project | Chạy dự án
 ```
 npm install
 npm run dev
 ```
 
 ---
-##🪐 Author
+## 🪐 Author
 
 - Developed by Arter.  
 - Art-inspired project for structured planning.  
