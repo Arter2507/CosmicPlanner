@@ -48,12 +48,8 @@ html.dark-theme-background {
 }
 
 .animate-gradient-text-light {
-	background-image: linear-gradient(
-		to right,
-		#ffffff 0%,
-		#e8e8e8 50%,
-		#ffffff 100%
-	);
+	background-image: linear-gradient(90deg, #ff6f91, #8e6ce1, #4475e3);
+	text-shadow: 0 0 8px rgba(119, 119, 119, 0.25);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
@@ -93,48 +89,89 @@ body {
 }
 
 /* ===== Hiệu ứng nền đen mờ khi hover ===== */
-.hover-bg-black {
+.hover-bg-black,
+.sidebar-hover-dark {
 	position: relative;
 	overflow: hidden; /* tránh tràn lớp overlay */
 }
 
-.hover-bg-black::after {
+.hover-bg-black::after,
+.sidebar-hover-dark::after {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background-color: rgba(0, 0, 0, 0.3); /* màu nền mờ */
 	opacity: 0; /* ẩn ban đầu */
 	transition: opacity 0.3s ease; /* hiệu ứng fade */
 	z-index: 0;
 }
 
-.hover-bg-black:hover::after {
+.hover-bg-black::after {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-hover-dark::after {
+	background-color: rgba(255, 255, 255, 0.15);
+}
+
+.hover-bg-black:hover::after,
+.sidebar-hover-dark:hover::after {
 	opacity: 1; /* hiển thị khi hover */
 }
 
 /* ===== Hiệu ứng nền trắng mờ khi hover ===== */
-.hover-bg-white {
+.hover-bg-white,
+.sidebar-hover-light {
 	position: relative;
 	overflow: hidden;
 }
 
-.hover-bg-white::after {
+.hover-bg-white::after,
+.sidebar-hover-light::after {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background-color: rgba(255, 255, 255, 0.3);
 	opacity: 0;
 	transition: opacity 0.3s ease;
 	z-index: 0;
 }
 
-.hover-bg-white:hover::after {
+.hover-bg-white::after {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-hover-light::after {
+	background-color: rgba(234, 190, 245, 0.9);
+}
+
+.hover-bg-white:hover::after,
+.sidebar-hover-light:hover::after {
 	opacity: 1;
 }
 
 /* Đảm bảo nội dung không bị che */
 .hover-bg-black > *,
-.hover-bg-white > * {
+.hover-bg-white > *,
+.sidebar-hover-light > * {
 	position: relative;
 	z-index: 1;
+}
+
+/* Custom Scrollbar Styles */
+.custom-scrollbar::-webkit-scrollbar {
+	width: 8px; /* Chiều rộng của scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.1); /* Màu nền của track */
+	border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background-color: rgba(147, 51, 234, 0.6); /* Màu của thumb (màu tím mờ) */
+	border-radius: 10px;
+	border: 2px solid rgba(255, 255, 255, 0.1); /* Border xung quanh thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(147, 51, 234, 0.8); /* Màu thumb khi hover */
 }
