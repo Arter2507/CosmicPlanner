@@ -11,6 +11,8 @@ export default {
 				'cosmic-pink': '#e0b0d5', // Màu hồng pastel
 				'dark-start': '#1A1B3B', // Darker blue/purple start
 				'dark-end': '#3B0F59',   // Darker pink/purple end
+				'sidebar-hover-light': 'rgba(234, 190, 245, 0.9)', // Màu tím nhẹ trong suốt cho hover light mode
+				'sidebar-hover-dark': 'rgba(255, 255, 255, 0.15)', // Màu trắng trong suốt cho hover dark mode
 			},
 			backgroundImage: {
 				'space-gradient-light': 'linear-gradient(to right top, #a7c7ed, #e0b0d5)', // Gradient xanh-hồng nhẹ cho chế độ sáng
@@ -32,9 +34,19 @@ export default {
 			},
 			textColor: {
 				'dark-mode': '#ffffff',
-				'light-mode': '#1a1a2e',
+				'light-mode': '#040408ff',
+			},
+			keyframes: {
+				// Nếu bạn muốn animation text gradient
+				gradientText: {
+					'0%, 100%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' },
+				},
+			},
+			animation: {
+				gradientText: 'gradientText 10s ease infinite', // Áp dụng animation
 			}
-		},
+		}
 	},
 	plugins: [],
 }

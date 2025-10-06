@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '../hooks/useTheme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,15 +8,13 @@ import {
 	faBell,
 	faSun,
 	faMoon,
-	faChevronDown,
 	faChartBar,
-	faCog,
 	faGlobe,
 	faComments,
 	faSignOutAlt,
 	faUser,
-	faUserAstronaut,
 	faSatellite,
+	faGear,
 } from '@fortawesome/free-solid-svg-icons';
 import { faMeteor } from '@fortawesome/free-solid-svg-icons/faMeteor';
 
@@ -45,14 +43,14 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 			{ icon: faSignOutAlt, label: 'Đăng xuất' },
 		],
 	};
-
+	const textGradientTheme =
+		theme === 'dark'
+			? 'animate-gradient-text-dark'
+			: 'animate-gradient-text-light';
 	return (
 		<header
 			className={`fixed top-0 left-0 w-full z-40 p-4 transition-colors duration-300
-        // Thay đổi ở đây: Bỏ các class bg-space-gradient và dark:bg-gradient-to-r
-        // Để nó chỉ có hiệu ứng blur, không có màu nền cứng
-        bg-opacity-0 backdrop-filter backdrop-blur-md // bg-opacity-0 để làm nền trong suốt
-        dark:bg-opacity-0 // Đảm bảo trong suốt cả ở chế độ tối
+        bg-opacity-0 backdrop-filter backdrop-blur-md dark:bg-opacity-0 // Đảm bảo trong suốt cả ở chế độ tối
       `}>
 			<div className='container mx-auto flex justify-between items-center h-12'>
 				{/* Left section: Sidebar toggle and App Name */}
@@ -69,11 +67,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 						/>
 					</button>
 					<h1
-						className={`text-3xl font-bold hidden sm:block ${
-							theme === 'dark'
-								? 'animate-gradient-text-dark'
-								: 'animate-gradient-text-light'
-						}`}>
+						className={`text-3xl font-bold hidden sm:block ${textGradientTheme}`}>
 						{theme === 'dark' ? (
 							<FontAwesomeIcon
 								icon={faSatellite}
@@ -104,85 +98,79 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 					</button>
 
 					{/* Theme Toggle Button */}
-					<button
-						onClick={toggleTheme}
-						className={`p-2 rounded-md ${
-							theme === 'dark' ? 'hover-bg-white' : 'hover-bg-black'
-						} text-gray-800 dark:text-gray-200`}
-						aria-label='Toggle Theme'>
-						{theme === 'dark' ? (
-							<FontAwesomeIcon
-								icon={faSun}
-								className='h-6 w-6'
-							/>
-						) : (
+					<label
+						htmlFor='theme-toggle'
+						className='relative inline-flex items-center cursor-pointer'>
+						<input
+							type='checkbox'
+							id='theme-toggle'
+							className='sr-only'
+							checked={theme === 'dark'}
+							onChange={toggleTheme}
+						/>
+						{/* Đường ray của nút gạt - giờ chứa cả icon */}
+						<div
+							className={`w-16 h-8 rounded-full relative transition-colors duration-300 flex items-center justify-between px-1.5 // px để có khoảng cách cho icon
+                                ${
+																	theme === 'dark'
+																		? 'bg-gradient-to-r from-purple-700 to-indigo-800'
+																		: 'bg-gray-300'
+																}
+                                border border-gray-400 dark:border-gray-600
+                            `}>
+							{/* Icon Mặt trăng (chế độ sáng) */}
 							<FontAwesomeIcon
 								icon={faMoon}
-								className='h-6 w-6'
+								className={`h-5 w-5 transition-all duration-300 ${
+									theme === 'light'
+										? 'text-indigo-700' // Màu sáng khi ở chế độ sáng
+										: 'text-gray-400' // Mờ đi khi ở chế độ tối
+								}`}
 							/>
-						)}
-					</button>
+							{/* Icon Mặt trời (chế độ tối) */}
+							<FontAwesomeIcon
+								icon={faSun}
+								className={`h-5 w-5 transition-all duration-300 ${
+									theme === 'dark'
+										? 'text-yellow-300' // Màu sáng khi ở chế độ tối
+										: 'text-gray-400' // Mờ đi khi ở chế độ sáng
+								}`}
+							/>
+							{/* Nút tròn di chuyển */}
+							<div
+								className={`absolute w-6 h-6 rounded-full transition-all duration-300 shadow-md
+                                ${
+																	theme === 'dark'
+																		? 'translate-x-[calc(100%+0.5rem)] bg-yellow-300' // Di chuyển sang phải + 0.5rem (8px) padding
+																		: 'translate-x-0 bg-gray-50' // Vị trí ban đầu
+																}
+                                top-1 left-1 // Căn giữa với đường ray
+                            `}></div>
+						</div>
+					</label>
 
 					{/* Profile Dropdown */}
 					<div className='relative'>
 						<button
 							onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-							className={`flex items-center space-x-2 p-1 rounded-full ${
+							className={`p-2 rounded-md ${
 								theme === 'dark' ? 'hover-bg-white' : 'hover-bg-black'
 							} 
-                         focus:outline-none focus:ring-2 focus:ring-purple-500`}>
-							<img
-								src={profile.avatar}
-								alt='User Avatar'
-								className='h-9 w-9 rounded-full object-cover border-2 border-purple-400'
-							/>
-							<span className='font-medium text-gray-800 dark:text-gray-50 hidden md:block'>
-								{profile.name}
-							</span>
+                         focus:outline-none focus:ring-2 focus:ring-purple-500`}
+							aria-label='Settings'>
 							<FontAwesomeIcon
-								icon={faChevronDown}
-								className='h-5 w-5 text-gray-700 dark:text-gray-200 hidden md:block'
+								icon={faGear}
+								className='h-6 w-6'
 							/>
 						</button>
 
 						{isProfileMenuOpen && (
 							<div
-								className='absolute right-0 mt-2 w-64 md:w-72 bg-white dark:bg-gray-800 rounded-2xl shadow-xl
+								className='absolute right-5 mt-2 w-40 md:w-50 bg-white dark:bg-gray-800 rounded-2xl shadow-xl
                            overflow-hidden transform transition-all duration-300 ease-out
                            scale-100 opacity-100 z-50
-                           dark:border dark:border-gray-700'
+                           dark:border dark:border-gray-700 items-center'
 								onClick={() => setIsProfileMenuOpen(false)}>
-								<div className='p-4 border-b border-gray-200 dark:border-gray-700'>
-									<div className='flex items-center space-x-3 mb-3'>
-										<img
-											src={profile.avatar}
-											alt='User Avatar'
-											className='h-12 w-12 rounded-full object-cover border-2 border-purple-400'
-										/>
-										<div>
-											<p className='font-semibold text-lg text-gray-900 dark:text-gray-50'>
-												{profile.name}
-											</p>
-											<p className='text-sm text-gray-500 dark:text-gray-400'>
-												Xem hồ sơ
-											</p>
-										</div>
-									</div>
-									<div className='flex justify-around text-center mt-2'>
-										{profile.stats.map((stat, index) => (
-											<div
-												key={index}
-												className='flex flex-col items-center'>
-												<span className='font-bold text-purple-600 dark:text-purple-400'>
-													{stat.value}
-												</span>
-												<span className='text-xs text-gray-600 dark:text-gray-400'>
-													{stat.label}
-												</span>
-											</div>
-										))}
-									</div>
-								</div>
 								<ul className='py-2'>
 									{profile.menuItems.map((item, index) => (
 										<li key={index}>
