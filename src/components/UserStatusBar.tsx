@@ -2,18 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../hooks/useTheme';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons'; // Example icon for user profile if needed
-
 const UserStatusBar: React.FC = () => {
 	// Thông tin profile để truyền vào UserStatusBar
 	const profileInfo = {
 		avatar: 'https://i.pravatar.cc/150?img=3', // Placeholder avatar
 		name: 'Linh Phi',
 		stats: [
-			{ label: 'Tụ Vi', value: 120 },
-			{ label: 'Tinh Thạch', value: 58 },
-			{ label: 'Tiên Ngọc', value: 12 },
+			{ label: 'Level', value: 120 },
+			{ label: 'Exp', value: 58 },
+			{ label: 'Coin', value: 12 },
 		],
 	};
 	const { theme } = useTheme();
@@ -31,18 +28,19 @@ const UserStatusBar: React.FC = () => {
 		weekday: 'long',
 	});
 
-	const profileTextColorClass =
+	const welcomeTextColorClass =
 		theme === 'dark'
 			? 'animate-gradient-text-dark'
 			: 'animate-gradient-text-light';
-
+	const profileTextColorClass =
+		theme === 'dark' ? 'text-white' : 'profileStat-color';
 	return (
 		<div
-			className={`mx-auto mb-6 relative z-10 
+			className={`mx-auto mt-4 mb-6 relative z-10 
                  w-full lg:max-w-screen-xl
                  px-4 py-4 bg-opacity-20 backdrop-filter backdrop-blur-md
                  rounded-2xl shadow-xl 
-                 border border-white border-opacity-10 dark:border-gray-700
+                 border border-white border-opacity-10 dark:border-white
                  flex justify-between items-center transition-all duration-300
                  ${
 										theme === 'dark'
@@ -54,7 +52,7 @@ const UserStatusBar: React.FC = () => {
 			<div className={`p-0 hidden md:block `}>
 				<p className='text-base font-semibold italic'>
 					"Welcome,{' '}
-					<span className={`font-bold ${profileTextColorClass}`}>
+					<span className={`font-bold ${welcomeTextColorClass}`}>
 						{profileInfo.name}
 					</span>
 					!
@@ -77,8 +75,7 @@ const UserStatusBar: React.FC = () => {
 						alt='User Avatar'
 						className='h-10 w-10 rounded-full object-cover border-2 border-purple-400'
 					/>
-					<span
-						className={`font-medium font-semibold ${profileTextColorClass}`}>
+					<span className={`font-lg font-bold ${profileTextColorClass}`}>
 						{' '}
 						{/* Hidden md:block đã bỏ để luôn hiển thị tên */}
 						{profileInfo.name}
@@ -95,12 +92,11 @@ const UserStatusBar: React.FC = () => {
 							{' '}
 							{/* flex-col để value trên, label dưới */}
 							<span
-								className={`text-sm ${profileTextColorClass} text-opacity-80`}>
+								className={`text-sm ${
+									theme === 'dark' ? 'text-white' : 'text-black'
+								} text-opacity-80 font-semibold`}>
 								{stat.label}:{' '}
-								<span
-									className={`font-bold ${
-										theme === 'dark' ? 'text-purple-400' : 'text-blue-600'
-									}`}>
+								<span className={`font-bold ${profileTextColorClass}`}>
 									{stat.value}
 								</span>
 							</span>

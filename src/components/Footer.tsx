@@ -29,20 +29,25 @@ const Footer: React.FC = () => {
 		minute: '2-digit',
 		second: '2-digit',
 	});
-
+	const textFooterTheme =
+		theme === 'dark' ? 'footer-bg-cosmic' : 'footer-bg-pastel';
 	return (
 		<footer
 			className={`fixed bottom-4 left-4 right-4 z-40 
         w-[calc(100%-32px)]
         p-4 text-center text-sm
-        bg-opacity-0 backdrop-filter backdrop-blur-md
-        dark:bg-opacity-0
-        border-t border-white border-opacity-10 dark:border-gray-700
+        //bg-opacity-0 backdrop-filter backdrop-blur-md dark:bg-opacity-0
+        ${
+					theme === 'dark'
+						? 'dark:bg-gradient-to-r dark:from-indigo-900 dark:to-purple-800'
+						: 'bg-space-gradient'
+				}
+				border-t border-white border-opacity-10 dark:border-gray-700
         rounded-2xl shadow-xl border border-white border-opacity-10 dark:border-white
         transition-colors duration-300`}>
 			<div
 				className={`container mx-auto flex flex-col sm:flex-row justify-center sm:justify-between items-center space-y-2 sm:space-y-0 font-semibold text-sm
-      ${theme === 'dark' ? 'text-black' : 'text-white'}`}>
+      ${textFooterTheme}`}>
 				<p>
 					&copy; {new Date().getFullYear()} Cosmic Planner. All Rights Reserved.
 				</p>

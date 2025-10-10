@@ -23,7 +23,7 @@
 
 /* Định nghĩa nền cho thẻ html dựa trên class từ ThemeProvider */
 html.light-theme-background {
-	background-image: url('/images/space_bg.jpg'); /* <-- CẦN CHÍNH XÁC */
+	background-image: url('/images/light-bg-city.jpg'); /* <-- CẦN CHÍNH XÁC */
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center;
@@ -32,35 +32,12 @@ html.light-theme-background {
 }
 
 html.dark-theme-background {
-	background-image: url('/images/dark-space-bg.jpg'); /* <-- CẦN CHÍNH XÁC */
+	background-image: url('/images/dark-bg-sky.jpg'); /* <-- CẦN CHÍNH XÁC */
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center;
 	transition: background-image 0.5s ease-in-out,
 		background-color 0.5s ease-in-out;
-}
-
-/* Hiệu ứng gradient cho chữ Cosmic Planner (hoặc các chữ khác) */
-.animate-gradient-text-dark {
-	background-image: linear-gradient(to right, #a7c5eb, #f7b0b9);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-
-.animate-gradient-text-light {
-	background-image: linear-gradient(90deg, #ff6f91, #8e6ce1, #4475e3);
-	text-shadow: 0 0 8px rgba(119, 119, 119, 0.25);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-
-@keyframes gradient-shift {
-	0% {
-		background-position: 0% 50%;
-	}
-	100% {
-		background-position: 100% 50%;
-	}
 }
 
 body {
@@ -72,6 +49,84 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+/* Hiệu ứng gradient cho chữ Cosmic Planner (hoặc các chữ khác) */
+.animate-gradient-text-dark {
+	background-image: linear-gradient(90deg, #7dd3fc, #c4b5fd);
+	background-size: 200% auto;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: gradientMove 8s ease infinite;
+}
+
+.animate-gradient-text-light {
+	background-image: linear-gradient(90deg, #ff8fa3, #c084fc, #60a5fa);
+	background-size: 200% auto;
+	text-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: gradientMove 6s ease infinite;
+}
+
+.sidebar-text-dark {
+	background-image: linear-gradient(90deg, #9ae6ff, #b5a8ff, #f6c1ff);
+	background-size: 200% auto;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: gradientMove 8s ease infinite;
+}
+
+.sidebar-text-light {
+	background-image: linear-gradient(90deg, #6246ea, #4e7fff, #3ccfcf);
+	background-size: 200% auto;
+	text-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: gradientMove 6s ease infinite;
+}
+
+.profileStat-color {
+	background-image: linear-gradient(90deg, #9ae6ff, #b5a8ff, #f6c1ff);
+	text-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: gradientMove 6s ease infinite;
+}
+
+.footer-bg-pastel {
+	color: #f4f5fa;
+	font-style: italic;
+	font-size: medium;
+}
+
+.footer-bg-cosmic {
+	color: #aab6e6;
+	font-style: italic;
+	text-shadow: 0 0 12px rgba(0, 0, 0, 0.22);
+	font-size: medium;
+}
+@keyframes gradientMove {
+	0% {
+		background-position: 0% center;
+	}
+	50% {
+		background-position: 100% center;
+	}
+	100% {
+		background-position: 0% center;
+	}
+}
+
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 50%;
+	}
+}
+
 /* Các styles chung cho chế độ sáng/tối nếu cần, ví dụ màu chữ mặc định */
 .light-theme-background {
 	color: #1a1a2e; /* Màu chữ mặc định cho chế độ sáng */
@@ -79,13 +134,6 @@ body {
 
 .dark-theme-background {
 	color: #ffffff; /* Màu chữ mặc định cho chế độ tối */
-}
-
-@media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
 }
 
 /* ===== Hiệu ứng nền đen mờ khi hover ===== */
@@ -140,7 +188,7 @@ body {
 }
 
 .sidebar-hover-light::after {
-	background-color: rgba(234, 190, 245, 0.9);
+	background-color: rgba(184, 161, 188, 0.9);
 }
 
 .hover-bg-white:hover::after,

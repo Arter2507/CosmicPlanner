@@ -1,39 +1,50 @@
 /** @format */
 
-import { useState, useEffect } from 'react';
+// src/App.tsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout';
-import { useTheme } from './hooks/useTheme'; // Import useTheme để áp dụng theme cho nền
-import './App.css';
+import MainContentLayout from './layouts/MainContent'; // Import MainContentLayout
+import { useTheme } from './hooks/useTheme';
+import DashboardPage from './pages/DashboardPage';
+import TablePage from './pages/TablePage';
 
-function App() {
+const App: React.FC = () => {
 	const { theme } = useTheme();
-
 	return (
-		<>
+		<Router>
 			<div
 				className={`min-h-screen flex flex-col 
-        ${theme === 'dark' ? 'text-dark-mode' : 'text-light-mode'}
-        // Nền sẽ được xử lý bởi các class trên thẻ html
-      `}>
+          ${
+						theme === 'dark' ? 'text-gray-50' : 'text-gray-800'
+					} // Điều chỉnh màu chữ tổng thể
+        `}>
 				<AppLayout>
-					{/* Nội dung chính của webapp */}
-					<div className='bg-white dark:bg-gray-900 bg-opacity-70 dark:bg-opacity-70 p-6 rounded-lg shadow-lg'>
-						<h2 className='text-3xl font-bold mb-4 text-gray-800 dark:text-gray-50'>
-							Chào mừng đến với Webapp Vũ trụ của bạn!
-						</h2>
-						<p className='text-lg text-gray-700 dark:text-gray-300'>
-							Header, Sidebar, Footer và Layout đã sẵn sàng.
-						</p>
-					</div>
-					<div className='mt-8 bg-white dark:bg-gray-900 bg-opacity-70 dark:bg-opacity-70 p-6 rounded-lg shadow-lg'>
-						<p className='text-lg text-gray-700 dark:text-gray-300'>
-							Khu vực này sẽ hiển thị nội dung chính của mỗi trang.
-						</p>
-					</div>
+					<Routes>
+						{/* Trang Dashboard (mặc định) */}
+						<Route
+							path='/dashboard'
+							element={
+								<MainContentLayout title='Bảng Điều Khiển Chính'>
+									<DashboardPage />
+								</MainContentLayout>
+							}
+						/>
+
+						{/* Trang Table View */}
+						<Route
+							path='/tables' // Đường dẫn khi truy cập trang Table
+							element={
+								<MainContentLayout title='Quản Lý Thiên Thể'>
+									<TablePage /> {/* Render TablePage component */}
+								</MainContentLayout>
+							}
+						/>
+					</Routes>
 				</AppLayout>
 			</div>
-		</>
+		</Router>
 	);
-}
+};
 
 export default App;

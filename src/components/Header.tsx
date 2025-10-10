@@ -58,8 +58,8 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 					<button
 						onClick={onToggleSidebar}
 						className={`p-2 rounded-md ${
-							theme === 'dark' ? 'hover-bg-white' : 'hover-bg-black'
-						} text-gray-800 dark:text-gray-200`}
+							theme === 'dark' ? 'hover-bg-black' : 'hover-bg-white'
+						}`}
 						aria-label='Toggle Sidebar'>
 						<FontAwesomeIcon
 							icon={faBars}
@@ -88,8 +88,8 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 					{/* Notification Icon */}
 					<button
 						className={`p-2 rounded-md ${
-							theme === 'dark' ? 'hover-bg-white' : 'hover-bg-black'
-						} text-gray-800 dark:text-gray-200`}
+							theme === 'dark' ? 'hover-bg-black' : 'hover-bg-white'
+						}`}
 						aria-label='Notifications'>
 						<FontAwesomeIcon
 							icon={faBell}
@@ -154,7 +154,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 						<button
 							onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
 							className={`p-2 rounded-md ${
-								theme === 'dark' ? 'hover-bg-white' : 'hover-bg-black'
+								theme === 'dark' ? 'hover-bg-black' : 'hover-bg-white'
 							} 
                          focus:outline-none focus:ring-2 focus:ring-purple-500`}
 							aria-label='Settings'>
@@ -167,9 +167,9 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 						{isProfileMenuOpen && (
 							<div
 								className='absolute right-5 mt-2 w-40 md:w-50 bg-white dark:bg-gray-800 rounded-2xl shadow-xl
-                           overflow-hidden transform transition-all duration-300 ease-out
-                           scale-100 opacity-100 z-50
-                           dark:border dark:border-gray-700 items-center'
+                overflow-hidden transform transition-all duration-300 ease-out
+                scale-100 opacity-100 z-50
+                dark:border dark:border-gray-700 items-center'
 								onClick={() => setIsProfileMenuOpen(false)}>
 								<ul className='py-2'>
 									{profile.menuItems.map((item, index) => (
