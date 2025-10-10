@@ -7,20 +7,38 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				'cosmic-blue': '#a7c7ed', // Màu xanh pastel
-				'cosmic-pink': '#e0b0d5', // Màu hồng pastel
-				'dark-start': '#1A1B3B', // Darker blue/purple start
-				'dark-end': '#3B0F59',   // Darker pink/purple end
-				'sidebar-hover-light': 'rgba(234, 190, 245, 0.9)', // Màu tím nhẹ trong suốt cho hover light mode
-				'sidebar-hover-dark': 'rgba(255, 255, 255, 0.15)', // Màu trắng trong suốt cho hover dark mode
+				cosmic: {
+					lightText: '#2D2D3A',
+					darkText: '#F2F3FA',
+					accentLight: '#4E7FFF',
+					accentDark: '#9AE6FF',
+					footerLight: '#F4F5FA',
+					footerDark: '#AAB6E6',
+				},
+				pastel: {
+					pink: '#FF8FA3',
+					purple: '#C084FC',
+					blue: '#60A5FA',
+				},
+				galaxy: {
+					blue: '#7DD3FC',
+					violet: '#C4B5FD',
+				},
+				'cosmic-blue': '#a7c7ed',
+				'cosmic-pink': '#e0b0d5',
+				'dark-start': '#1A1B3B',
+				'dark-end': '#3B0F59',
+				'sidebar-hover-light': 'rgba(234, 190, 245, 0.9)',
+				'sidebar-hover-dark': 'rgba(255, 255, 255, 0.15)',
 			},
 			backgroundImage: {
-				'space-gradient-light': 'linear-gradient(to right top, #a7c7ed, #e0b0d5)', // Gradient xanh-hồng nhẹ cho chế độ sáng
-				'space-gradient-dark': 'linear-gradient(to right top, var(--tw-gradient-stops))', // Sử dụng var để linh hoạt hơnGradient dark blue-purple cho chế độ tối (màu ví dụ)
-				'space-bg': "url('/images/space_bg.jpg')", // Ảnh nền vũ trụ
-
-				// Gradient cho chữ Cosmic Planner (hoặc các chữ khác)
-				'gradient-text-header': 'linear-gradient(to right, #e0b0d5, #a7c7ed, #915EBE)', // 
+				'space-gradient-light': 'linear-gradient(to right top, #a7c7ed, #e0b0d5)',
+				'space-gradient-dark': 'linear-gradient(to right top, var(--tw-gradient-stops))',
+				'gradient-text-header': 'linear-gradient(to right, #e0b0d5, #a7c7ed, #915EBE)',
+				'gradient-pastel': 'linear-gradient(90deg, #6246EA, #4E7FFF, #3CCFCF)',
+				'gradient-cosmic': 'linear-gradient(90deg, #9AE6FF, #B5A8FF, #F6C1FF)',
+				'gradient-heading-light': 'linear-gradient(90deg, #FF8FA3, #C084FC, #60A5FA)',
+				'gradient-heading-dark': 'linear-gradient(90deg, #7DD3FC, #C4B5FD)',
 			},
 			backgroundSize: {
 				'200%': '200%', // Kích thước nền lớn hơn để tạo hiệu ứng di chuyển
@@ -30,7 +48,7 @@ export default {
 				'pos-100': '100% 100%',
 			},
 			backgroundColor: {
-				// Chúng ta sẽ không cần thiết lập màu nền trực tiếp ở đây nữa, mà sẽ dùng bg-image hoặc class
+
 			},
 			textColor: {
 				'dark-mode': '#ffffff',
