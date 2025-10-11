@@ -3,11 +3,21 @@
 // src/App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+{
+	/*--- Layout --- */
+}
 import AppLayout from './layouts/AppLayout';
 import MainContentLayout from './layouts/MainContent'; // Import MainContentLayout
+{
+	/*--- Theme --- */
+}
 import { useTheme } from './hooks/useTheme';
+{
+	/*--- Pages --- */
+}
 import DashboardPage from './pages/DashboardPage';
 import TablePage from './pages/TablePage';
+import { GalaxyManagementPage } from './components/galaxymanagement/GalaxyManagement';
 
 const App: React.FC = () => {
 	const { theme } = useTheme();
@@ -23,12 +33,26 @@ const App: React.FC = () => {
 					<Routes>
 						{/* Trang Dashboard (mặc định) */}
 						<Route
+							path='/'
+							element={
+								<MainContentLayout title='Bảng Điều Khiển Chính'>
+									<DashboardPage />
+								</MainContentLayout>
+							}
+						/>
+						<Route
 							path='/dashboard'
 							element={
 								<MainContentLayout title='Bảng Điều Khiển Chính'>
 									<DashboardPage />
 								</MainContentLayout>
 							}
+						/>
+
+						{/* Trang Galaxy Management */}
+						<Route
+							path='/management/galaxies'
+							element={<GalaxyManagementPage />}
 						/>
 
 						{/* Trang Table View */}
@@ -40,6 +64,7 @@ const App: React.FC = () => {
 								</MainContentLayout>
 							}
 						/>
+						{/* Add other routes here */}
 					</Routes>
 				</AppLayout>
 			</div>

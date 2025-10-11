@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
 
 	const navItems: NavItem[] = [
 		{ icon: faHome, label: 'Dashboard', link: '/dashboard' },
-		{ icon: faCalendarAlt, label: 'Planner', link: '/planner' },
+		{ icon: faCalendarAlt, label: 'Planner', link: '/management/galaxies' },
 		{ icon: faClipboardList, label: 'To-Do List', link: '/tables' },
 		{ icon: faTasks, label: 'Tasks', link: '/tasks' },
 		{ icon: faWallet, label: 'Expense Plan', link: '/expense' },
@@ -57,48 +57,58 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
 		theme === 'dark' ? 'sidebar-text-dark' : 'sidebar-text-light';
 
 	// Điều chỉnh giá trị top, left và height cho sidebar để cách header và bo góc toàn bộ
-	const sidebarTopOffset = 'top-[96px]'; // Khoảng cách từ top
-	const sidebarHorizontalOffset = 'left-3'; // Khoảng cách từ cạnh trái
-	const sidebarHeightCalc = 'h-[calc(100vh-97px-80px-16px)]'; // Điều chỉnh chiều cao: 96px header, 56px footer, 16px bottom-margin/offset
-	const sidebarWidthOpen = 'w-60'; // Giảm chiều rộng một chút để có khoảng trống 2 bên
-	const sidebarWidthClosed = 'w-20'; // Chiều rộng khi đóng
+	const sidebarTopOffset = 'top-[96px]';
+	const sidebarBottomOffset = 'bottom-[52px]';
+	const sidebarHorizontalOffset = 'left-3';
+	const sidebarHeightCalc = 'h-[calc(100vh-90px-47px-25px)]';
+	const sidebarWidthOpen = 'w-60';
+	const sidebarWidthClosed = 'w-40';
 	return (
 		<>
 			{/* Overlay backdrop khi sidebar mở trên mobile */}
 			{isOpen && (
 				<div
-					className='fixed inset-0 bg-opacity-0 backdrop-filter backdrop-blur-md dark:bg-opacity-0 z-30 lg:hidden'
+					className='fixed inset-0 bg-opacity-0 backdrop-filter backdrop-blur-sm dark:bg-opacity-0 z-20 lg:hidden'
 					onClick={toggleSidebar}></div>
 			)}
 
 			<aside
-				className={`fixed ${sidebarHorizontalOffset} ${sidebarTopOffset} ${sidebarHeightCalc}
+				className={`fixed ${sidebarHorizontalOffset} ${sidebarTopOffset} ${sidebarHeightCalc} ${sidebarBottomOffset}
           transform transition-all duration-300 ease-in-out
           ${
 						isOpen
 							? `translate-x-0 ${sidebarWidthOpen}`
 							: `-translate-x-full ${sidebarWidthClosed} lg:translate-x-0 lg:${sidebarWidthClosed}`
 					}
-          py-6 px-2 /* Added some horizontal padding */
-          // bg-opacity-0 backdrop-filter backdrop-blur-md dark:bg-opacity-0
+          py-6 px-2 dark:bg-opacity-0
           ${
 						theme === 'dark'
 							? 'dark:bg-gradient-to-r dark:from-indigo-900 dark:to-purple-800'
-							: 'bg-space-gradient'
+							: 'bg-space-gradient backdrop-filter backdrop-blur-md'
 					}
 					rounded-2xl border border-opacity-10 dark:border-white
-          flex flex-col
-					z-20 // Tăng z-index để sidebar nổi lên trên main
-          overflow-x-hidden // Ẩn nội dung bị tràn khi đóng
+          flex flex-col z-50
         `}>
 				<div className='flex flex-col h-full'>
-					<div className={`p-4 ${isOpen ? '' : 'hidden lg:block'}`}>
-						{/* Close button for mobile */}
+					{/* Phần HEADER của sidebar với nút đóng và có thể là logo/title */}
+					<div
+						className={`relative flex items-center justify-between px-5 mb-4 ${
+							isOpen ? '' : 'hidden lg:block'
+						}`}>
+						{/* Đây là nơi bạn có thể đặt Logo hoặc tiêu đề sidebar nếu muốn */}
+						{isOpen && (
+							<span className={`${textSidebarTheme} font-bold text-xl`}>
+								Menu
+							</span> // Ví dụ: thêm một tiêu đề
+						)}
+						{/* Nút đóng */}
 						{isOpen && (
 							<button
 								onClick={toggleSidebar}
-								className='absolute top-4 right-4 p-2 rounded-md hover:bg-white hover:bg-opacity-10 transition-all duration-200
-                lg:hidden'
+								className={`p-2 rounded-md ${
+									theme === 'dark' ? 'hover-bg-black' : 'hover-bg-white'
+								} transition-all duration-200
+                    lg:hidden`}
 								aria-label='Close Sidebar'>
 								<FontAwesomeIcon
 									icon={faTimes}
@@ -119,21 +129,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
                       ${
 												theme === 'dark'
 													? 'sidebar-hover-light'
-													: 'sidebar-hover-black'
+													: 'sidebar-hover-dark'
 											}
 											whitespace-nowrap transition-[width,opacity] duration-300 ease-in-out
-                        overflow-hidden
+                      overflow-hidden
                       ${textSidebarTheme} transition-all duration-200
                       ${
-												isOpen
-													? 'flex-1 opacity-100 visible'
-													: 'w-0 opacity-0 invisible' // Khi đóng, ẩn span hoàn toàn
+												isOpen ? 'flex-1 opacity-100 visible' : 'justify-center' // Khi đóng, ẩn span hoàn toàn
 											}
-                        w-full
+                      w-full
                     `}>
 										<FontAwesomeIcon
 											icon={item.icon}
-											className={`h-5 w-5 ${isOpen ? 'mr-3' : 'mx-auto'}`}
+											className={`h-5 w-5 ${isOpen ? 'mr-3' : ''}`}
 										/>
 										<span
 											className={`
@@ -151,9 +159,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
 										</span>
 									</a>
 									{/* Divider */}
-									{isOpen && ( // Chỉ hiển thị divider khi sidebar mở
-										<div className={`mx-2 mb-3 border-t ${dividerColor}`}></div>
-									)}
+									{isOpen &&
+										index < navItems.length - 1 && ( // Only show divider when sidebar open and not after the last item
+											<div
+												className={`mx-2 my-3 border-t ${dividerColor}`}></div>
+										)}
 								</li>
 							))}
 						</ul>

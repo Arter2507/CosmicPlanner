@@ -33,10 +33,9 @@ const Footer: React.FC = () => {
 		theme === 'dark' ? 'footer-bg-cosmic' : 'footer-bg-pastel';
 	return (
 		<footer
-			className={`fixed bottom-4 left-4 right-4 z-40 
-        w-[calc(100%-32px)]
+			className={`bottom-0 left-0 right-0 h-[52px] w-full z-40 
         p-4 text-center text-sm
-        //bg-opacity-0 backdrop-filter backdrop-blur-md dark:bg-opacity-0
+        bg-opacity-0 backdrop-filter backdrop-blur-md dark:bg-opacity-0
         ${
 					theme === 'dark'
 						? 'dark:bg-gradient-to-r dark:from-indigo-900 dark:to-purple-800'
