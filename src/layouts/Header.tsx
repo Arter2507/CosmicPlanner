@@ -49,8 +49,8 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 			: 'animate-gradient-text-light';
 	return (
 		<header
-			className={`fixed top-0 left-0 w-full z-40 p-4 transition-colors duration-300
-        bg-opacity-0 backdrop-filter backdrop-blur-md dark:bg-opacity-0 // Đảm bảo trong suốt cả ở chế độ tối
+			className={`fixed top-0 left-0 w-full z-50 p-4 transition-colors duration-300 h-[90px]
+        bg-opacity-0 backdrop-filter backdrop-blur-md dark:bg-opacity-0
       `}>
 			<div className='container mx-auto flex justify-between items-center h-12'>
 				{/* Left section: Sidebar toggle and App Name */}
