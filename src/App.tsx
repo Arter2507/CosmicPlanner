@@ -8,6 +8,7 @@ import NotFoundPage from './pages/NotFound';
 import { LovingManagementPage } from './pages/LovingPage';
 import DashboardManagementPage from './pages/DashboardPage';
 import { SharedStateProvider } from './contexts/ShareStateProvider';
+import TodoManagementPage from './pages/TodoPage';
 
 export default function App() {
 	return (
@@ -27,6 +28,10 @@ export default function App() {
 							<Route
 								path='/loving'
 								element={<LovingManagementPage />}
+							/>
+							<Route
+								path='/todo'
+								element={<TodoManagementPage />}
 							/>
 						</Route>
 						<Route

@@ -12,17 +12,33 @@ import {
 	calculateDays,
 	getZodiacSign,
 } from '../../utils/lovingUtils';
-import ZodiacSignDisplay from './widget/ZodiacSignDisplay';
-import Memories from './widget/Memories';
-import MemoryDialog from './widget/MemoryDialog';
-import PersonEditDialog from './widget/PersonEditDialog';
-import { Heart, Gem, Sparkles, Pencil, Settings } from 'lucide-react';
+import ZodiacSignDisplay from '../loving_management/widget/ZodiacSignDisplay';
+import Memories from '../loving_management/widget/Memories';
+import MemoryDialog from '../loving_management/widget/MemoryDialog';
+import PersonEditDialog from '../loving_management/widget/PersonEditDialog';
+import RelationshipEditDialog from '../loving_management/widget/RelationshipEditDialog'; // Import new dialog
+import {
+	Heart,
+	Gem,
+	Sparkles,
+	Pencil,
+	Settings,
+	Users,
+	HeartCrack,
+	Phone,
+	Ghost,
+	Flame,
+	ShieldQuestion,
+	User,
+	Milestone,
+} from 'lucide-react';
 import { Button } from '../ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
+	DropdownMenuSeparator,
 } from '../ui/dropdown-menu';
 import { toast } from 'sonner';
 
@@ -61,6 +77,7 @@ const statusStyles: Record<
 	RelationshipStatus,
 	{ icon: React.ReactNode; color: string; shadow: string }
 > = {
+	// Core
 	dating: {
 		icon: <Heart className='h-10 w-10 md:h-12 md:w-12' />,
 		color: 'text-pink-400',
@@ -81,10 +98,91 @@ const statusStyles: Record<
 		color: 'text-amber-400',
 		shadow: 'drop-shadow-[0_0_15px_rgba(251,191,36,0.8)]',
 	},
+
+	// Positive & Neutral
 	acquaintance: {
 		icon: <Sparkles className='h-10 w-10 md:h-12 md:w-12' />,
 		color: 'text-purple-400',
 		shadow: 'drop-shadow-[0_0_15px_rgba(192,132,252,0.8)]',
+	},
+	friends: {
+		icon: <Users className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-blue-400',
+		shadow: 'drop-shadow-[0_0_15px_rgba(96,165,250,0.8)]',
+	},
+	close_friends: {
+		icon: <Users className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-indigo-400',
+		shadow: 'drop-shadow-[0_0_15px_rgba(129,140,248,0.8)]',
+	},
+	crush: {
+		icon: <Heart className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-rose-400',
+		shadow: 'drop-shadow-[0_0_15px_rgba(251,113,133,0.8)]',
+	},
+	rekindled: {
+		icon: <Flame className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-red-600',
+		shadow: 'drop-shadow-[0_0_15px_rgba(220,38,38,0.8)]',
+	},
+	single: {
+		icon: <User className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-green-400',
+		shadow: 'drop-shadow-[0_0_15px_rgba(74,222,128,0.8)]',
+	},
+
+	// Complicated / In-between
+	complicated: {
+		icon: <ShieldQuestion className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-orange-400',
+		shadow: 'drop-shadow-[0_0_15px_rgba(251,146,60,0.8)]',
+	},
+	long_distance: {
+		icon: <Phone className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-teal-400',
+		shadow: 'drop-shadow-[0_0_15px_rgba(45,212,191,0.8)]',
+	},
+	talking_stage: {
+		icon: <Sparkles className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-lime-400',
+		shadow: 'drop-shadow-[0_0_15px_rgba(163,230,53,0.8)]',
+	},
+	situationship: {
+		icon: <ShieldQuestion className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-yellow-500',
+		shadow: 'drop-shadow-[0_0_15px_rgba(234,179,8,0.8)]',
+	},
+	open_relationship: {
+		icon: <Heart className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-fuchsia-500',
+		shadow: 'drop-shadow-[0_0_15px_rgba(217,70,239,0.8)]',
+	},
+
+	// Negative / Past
+	break_up: {
+		icon: <HeartCrack className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-slate-500',
+		shadow: 'drop-shadow-[0_0_15px_rgba(100,116,139,0.8)]',
+	},
+	separated: {
+		icon: <HeartCrack className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-stone-500',
+		shadow: 'drop-shadow-[0_0_15px_rgba(120,113,108,0.8)]',
+	},
+	divorced: {
+		icon: <HeartCrack className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-gray-600',
+		shadow: 'drop-shadow-[0_0_15px_rgba(75,85,99,0.8)]',
+	},
+	ghosted: {
+		icon: <Ghost className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-violet-500',
+		shadow: 'drop-shadow-[0_0_15px_rgba(139,92,246,0.8)]',
+	},
+	widowed: {
+		icon: <Milestone className='h-10 w-10 md:h-12 md:w-12' />,
+		color: 'text-gray-800 dark:text-gray-300',
+		shadow: 'drop-shadow-[0_0_15px_rgba(55,65,81,0.8)]',
 	},
 };
 
@@ -100,6 +198,7 @@ const LovingPage: React.FC = () => {
 	const [editingPersonKey, setEditingPersonKey] = useState<
 		'person1' | 'person2' | null
 	>(null);
+	const [isRelationshipDialogOpen, setRelationshipDialogOpen] = useState(false);
 
 	// --- Memory Handlers ---
 	const handleAddMemory = () => {
@@ -138,6 +237,17 @@ const LovingPage: React.FC = () => {
 		if (editingPersonKey) {
 			setInfo((prev) => ({ ...prev, [editingPersonKey]: updatedPerson }));
 		}
+	};
+
+	// --- Relationship and Data Handlers ---
+	const handleSaveRelationship = (updatedInfo: LovingInfoState) => {
+		setInfo(updatedInfo);
+	};
+
+	const handleResetData = () => {
+		setInfo(initialLovingData);
+		setMemories(initialMemories);
+		toast.success('All information has been reset to default.');
 	};
 
 	const PersonProfile: React.FC<{ person: PersonInfo; onEdit: () => void }> = ({
@@ -192,12 +302,14 @@ const LovingPage: React.FC = () => {
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align='end'>
 							<DropdownMenuItem
-								onSelect={() => handleOpenEditDialog('person1')}>
-								Edit Person 1
+								onSelect={() => setRelationshipDialogOpen(true)}>
+								Edit All Details
 							</DropdownMenuItem>
+							<DropdownMenuSeparator />
 							<DropdownMenuItem
-								onSelect={() => handleOpenEditDialog('person2')}>
-								Edit Person 2
+								onSelect={handleResetData}
+								className='text-destructive focus:text-destructive'>
+								Reset Data
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
@@ -252,6 +364,12 @@ const LovingPage: React.FC = () => {
 					personKey={editingPersonKey}
 				/>
 			)}
+			<RelationshipEditDialog
+				isOpen={isRelationshipDialogOpen}
+				onClose={() => setRelationshipDialogOpen(false)}
+				onSave={handleSaveRelationship}
+				lovingInfo={info}
+			/>
 		</div>
 	);
 };

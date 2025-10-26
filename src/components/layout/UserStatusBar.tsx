@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Star, Flame, Award } from 'lucide-react';
 
 // A collection of inspirational quotes.
@@ -12,11 +13,32 @@ const quotes = [
 	'The journey of a thousand miles begins with a single step.',
 ];
 
+const getPageTitle = (pathname: string): string => {
+	if (pathname === '/') return 'Home';
+	const title = pathname.replace('/', '').replace(/-/g, ' ');
+	return title.charAt(0).toUpperCase() + title.slice(1);
+};
+
 /**
  * A status bar showing user information, gamification stats, and a daily quote.
  */
 const UserStatusBar: React.FC = () => {
 	const [quote, setQuote] = useState('');
+	const location = useLocation();
+
+	const pageTitle = getPageTitle(location.pathname);
+	const welcomeMessage =
+		location.pathname === '/' ? (
+			'Welcome, Stardust!'
+		) : (
+			<>
+				Stardust, you are on the{' '}
+				<strong className='font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-custom to-accent-custom dark:from-indigo-400 dark:to-purple-400'>
+					{pageTitle}
+				</strong>{' '}
+				page.
+			</>
+		);
 
 	useEffect(() => {
 		// Get a new quote every day based on the day of the year to ensure it's consistent for the whole day.
@@ -32,8 +54,8 @@ const UserStatusBar: React.FC = () => {
 		<div className='bg-card border border-border rounded-xl shadow-md p-4 flex flex-wrap items-center justify-between gap-4'>
 			{/* Left side: Welcome & Quote */}
 			<div>
-				<h2 className='text-2xl font-bold text-text'>Welcome, Stardust!</h2>
-				<p className='text-sm text-text/70 italic mt-1'>"{quote}"</p>
+				<h2 className='text-2xl font-bold text-foreground'>{welcomeMessage}</h2>
+				<p className='text-sm text-foreground/70 italic mt-1'>"{quote}"</p>
 			</div>
 
 			{/* Right side: Avatar & Stats */}

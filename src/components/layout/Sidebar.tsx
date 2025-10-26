@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import type { SidebarProps, NavLinkProps } from '../../types/layout.type';
 import {
 	LayoutDashboard,
-	ListTodo,
 	Zap,
 	NotebookText,
 	Heart,
 	Home,
+	CheckSquare,
 } from 'lucide-react';
 
 /**
@@ -67,8 +67,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
 				</span>
 			</div>
 
-			{/* Homepage link */}
-			<div className='p-3 border-b border-border'>
+			{/* Primary Navigation */}
+			<div className='p-3 border-b border-border space-y-1'>
+				<h4
+					className={`px-3 pb-1 text-xs font-semibold text-muted-foreground/80 uppercase tracking-wider transition-opacity duration-200 ${
+						isOpen ? 'opacity-100' : 'opacity-0 md:hidden'
+					}`}>
+					Main
+				</h4>
 				<NavLink
 					to='/'
 					icon={<Home className='h-6 w-6 flex-shrink-0' />}
@@ -83,7 +89,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
 				/>
 			</div>
 
-			<nav className='flex-1 p-3 space-y-2 overflow-y-auto'>
+			{/* Secondary Navigation */}
+			<nav className='flex-1 p-3 space-y-1 overflow-y-auto'>
+				<h4
+					className={`px-3 pb-1 text-xs font-semibold text-muted-foreground/80 uppercase tracking-wider transition-opacity duration-200 ${
+						isOpen ? 'opacity-100' : 'opacity-0 md:hidden'
+					}`}>
+					Modules
+				</h4>
 				<NavLink
 					to='/loving'
 					icon={<Heart className='h-6 w-6 flex-shrink-0' />}
@@ -91,8 +104,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
 					isOpen={isOpen}
 				/>
 				<NavLink
-					to='#'
-					icon={<ListTodo className='h-6 w-6 flex-shrink-0' />}
+					to='/todo'
+					icon={<CheckSquare className='h-6 w-6 flex-shrink-0' />}
 					text='Todo List'
 					isOpen={isOpen}
 				/>
