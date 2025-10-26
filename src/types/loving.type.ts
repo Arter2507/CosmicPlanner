@@ -1,6 +1,4 @@
 /** @format */
-
-// FIX: Removed self-import of `LovingInfoState` and `PersonInfo` that was causing declaration conflicts.
 export interface PersonInfo {
 	name: string;
 	nickname: string;
@@ -9,11 +7,26 @@ export interface PersonInfo {
 }
 
 export type RelationshipStatus =
-	| 'dating'
-	| 'married'
 	| 'acquaintance'
+	| 'friends'
+	| 'close_friends'
+	| 'crush'
+	| 'dating'
+	| 'in_love'
 	| 'engaged'
-	| 'in_love';
+	| 'married'
+	| 'complicated'
+	| 'long_distance'
+	| 'break_up'
+	| 'divorced'
+	| 'single'
+	| 'talking_stage'
+	| 'ghosted'
+	| 'rekindled'
+	| 'open_relationship'
+	| 'situationship'
+	| 'separated'
+	| 'widowed';
 
 export interface RelationshipInfo {
 	startDate?: Date;
@@ -44,7 +57,7 @@ export type ZodiacSign =
 export interface Memory {
 	id: number;
 	title: string;
-	date: Date; // YYYY-MM-DD
+	date: Date;
 	description: string;
 }
 
@@ -72,4 +85,11 @@ export interface PersonEditDialogProps {
 	person: PersonInfo;
 	onSave: (updatedPerson: PersonInfo) => void;
 	personKey: 'person1' | 'person2';
+}
+
+export interface RelationshipEditDialogProps {
+	isOpen: boolean;
+	onClose: () => void;
+	onSave: (updatedInfo: LovingInfoState) => void;
+	lovingInfo: LovingInfoState;
 }
